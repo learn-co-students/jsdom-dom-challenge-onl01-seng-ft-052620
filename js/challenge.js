@@ -9,7 +9,7 @@ const commentForm = document.getElementsByTagName('input')[0];
 const comments = document.getElementById('list');
 const submit = document.getElementById('submit');
 let speedCounter = setInterval(plusCounter, 1000);
-let gameRunning = true 
+let gameRunning = true;
 let i = 0;
 
     function plusCounter() {
