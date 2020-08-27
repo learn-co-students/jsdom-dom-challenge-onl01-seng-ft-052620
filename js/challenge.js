@@ -6,7 +6,11 @@ const pause = () => document.getElementById('pause')
 const likes = () => document.querySelector('.likes')
 const comments = () => document.getElementById('list')
 const counter = () => document.getElementById('counter')
+let intervalId = null;
 
+pause().addEventListener('click', function(){
+    clearInterval(intervalId)
+})
 
 const submit = document.getElementById('submit')
 submit.addEventListener('click', function(e){
@@ -16,13 +20,27 @@ submit.addEventListener('click', function(e){
 
 plus().addEventListener('click', function(){
     counter().innerText++
+    clearInterval(intervalId)
+    intervalId = setInterval( () => counter().innerText++, 1000)
 })
+   
+    
+
 minus().addEventListener('click', function(){
-    if (counter().innerText == 0){
-        minus().disabled
+    if (counter().innerText <= 0){
+        clearInterval(intervalId) 
     } else {
     counter().innerText--
+    clearInterval(intervalId)
+    intervalId = setInterval( () => { 
+        if (counter().innerText <= 0){
+            clearInterval(intervalId) 
+        } else {   
+           counter().innerText--
+        }
+    }, 1000)
 }
+    
 })
 heart().addEventListener('click', function(){
     const like = document.createElement('LI')
