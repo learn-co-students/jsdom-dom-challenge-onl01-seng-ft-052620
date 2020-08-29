@@ -2,12 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     counter()
     const minus = document.getElementById("minus")
     const plus = document.getElementById("plus")
+    const heart = document.getElementById("heart")
     const pause = document.getElementById("pause")
     const form = document.getElementById("comment-form")
     const count = document.getElementById("counter")
-    const like = document.getElementById('heart');
-    const like_counts = [];
-    heart.addEventListener('click', addLike)
+    let click = 0
+    heart.addEventListener('click', handleHeart)
 
     minus.addEventListener('click', () => {
         count.innerHTML--
@@ -28,22 +28,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     }
-    function addLike() {
-        likes_list = document.querySelector('.likes');
-        let num = parseInt(counter.textContent, 10);
-        if (like_counts[num]) {
-            like_counts[num] += 1;
-            const listItem = document.getElementById(`like-${num}`);
-            addListItem(listItem);
-        } else {
-            like_counts[num] = 1;
-            const listItem = document.createElement('li');
-            listItem.id = `like-${num}`;
-            addListItem(listItem);
-        }
+
+    function handleHeart() {
+      
+        heart.addEventListener('click', () => {
+            click = 0
+            // debugger
+        })
+
+        const heartComment = document.querySelector("#list")
+       
+        heartComment.innerHTML += `
+        <li>
+        ${count.innerText}  has been liked ${click+=1}
+        </li>
+        `
+
+
+
     }
 
-})
 
+})
 
 
