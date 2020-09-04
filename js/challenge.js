@@ -1,3 +1,4 @@
+// ALL THE NODES////////////////////////////////////////////
 let counter = () => document.querySelector("#counter");
 let pause = () => document.querySelector("#pause")
 let plus = () => document.querySelector("#plus")
@@ -7,10 +8,7 @@ let likes = () => document.querySelector("ul.likes")
 let submit = () => document.querySelector("#submit")
 let commentList = () => document.querySelector("#list")
 
-let timeOn = true
-
-let timer = setInterval(function(){counter().innerHTML ++;}, 1000);
-
+// THE PLUS MINUS BUTTONS /////////////////////////////////////////
 let incrementTimer = plus().addEventListener("click", function(){
     counter().innerHTML ++;
 });
@@ -19,16 +17,36 @@ let decrementTimer = minus().addEventListener("click", function(){
     counter().innerHTML --;
 });
 
-let stopIt = function pauseTimer(){
-    clearInterval(timer)
+// THIS IS NOT AS USEFUL AS I HOPED IT WOULD BE :D ////////////
+function toggleButtons(){
+    plus().disabled = true ? plus().disabled = false : plus().disabled = true
+    minus().disabled = true ? minus().disabled = false : minus().disabled = true
+    heart().disabled = true ? heart().disabled = false : heart().disabled = true
+    submit().disabled = true ? submit().disabled = false : submit().disabled = minus
 }
 
-pause().addEventListener("click", function(){
-    stopIt()
+//WHERE THE FUN PART BEGINS //////////////////////////////////////////
+let timer = setInterval(function(){counter().innerHTML ++;}, 1000);
+let on = true
+
+function pauseTimer(){
+    clearInterval(timer)
     plus().disabled = true
     minus().disabled = true
     heart().disabled = true
     submit().disabled = true
+    on = false
+}
+
+pause().addEventListener("click", function(){
+    if (on){
+        pauseTimer()
+    } else {
+        clearInterval(timer)
+        timer = setInterval(function(){counter().innerHTML ++;}, 1000);
+        on = true
+        toggleButtons()
+    }
 });
 
 heart().addEventListener("click", function(){
