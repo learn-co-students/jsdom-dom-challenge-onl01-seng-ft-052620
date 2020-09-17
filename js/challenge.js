@@ -5,6 +5,7 @@ const getPause = () => document.querySelector('button#pause')
 const getMinus = () => document.querySelector('button#minus')
 const getPlus = () => document.querySelector('button#Plus')
 const getHeart = () => document.querySelector('button#heart')
+const getComment = () => document.getElementById('comment-input').value
 // const counterInterval = () => setInterval(addOneToCount, 1000)
 let counterInterval
 
@@ -79,22 +80,20 @@ function addLikesToCount(){
         
         // As a user, I should see the timer increment every second once the page has loaded.
         // create a function that adds a second to the counter
-    document.getElementById('pause').onclick =  pauseAllOnPush;
-
+    var hello = document.getElementById('pause')
+    hello.addEventListener('click', () => {pauseAllOnPush()})
 function pauseAllOnPush () {
-   if (getPause().textContent == " pause ") {
+    if (getPause().textContent == " pause ") {
         disableButtons()
         clearInterval(counterInterval)
         getPause().textContent =  " resume "
+    }else if (getPause().textContent == " resume "){
+            enableButtons()
+            startCounter()
+            getPause().textContent = " pause "
+        }
     }
-
-    if (getPause().textContent == " resume "){
-        enableButtons()
-        startCounter()
-        getPause().textContent = " pause "
-    }
-}
-
+    
     function disableButtons() {
         getMinus().disabled = true
         getPlus().disabled = true
@@ -106,3 +105,22 @@ function pauseAllOnPush () {
         getPlus().disabled = false
         getHeart().disabled = false
     }
+
+    document.getElementById('submit').addEventListener("click", function(e){
+        captureComment()
+        e.preventDefault()
+    });
+
+
+function captureComment(){
+    addCommentOnSubmit()
+}
+
+function addCommentOnSubmit(){
+    let newCommentHeader = document.createElement('h4');
+    let newCommentContent = document.createTextNode(getComment())
+    newCommentHeader.appendChild(newCommentContent)
+    let findCommmentDiv = document.querySelector('div#list')
+    findCommmentDiv.appendChild(newCommentHeader)
+    
+}
